@@ -8,7 +8,7 @@
 ## Install
 
 ```bash
-$ yarn add @caohenghu/vue-colorpicker
+$ npm i @caohenghu/vue-colorpicker
 ```
 
 ## Example
