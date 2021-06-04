@@ -1,13 +1,11 @@
 <template>
-    <div class="color-type">
-        <span class="name">
-            {{ name }}
-        </span>
-        <input
-            v-model="modelColor"
-            class="value"
-        >
-    </div>
+  <div class="color-type">
+    <span class="name">
+      {{ name }}
+    </span>
+    <input v-model="modelColor"
+           class="value">
+  </div>
 </template>
 
 <script>
@@ -15,12 +13,12 @@ export default {
     props: {
         name: {
             type: String,
-            default: ''
+            default: '',
         },
         color: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     computed: {
         modelColor: {
@@ -29,9 +27,9 @@ export default {
             },
             set(val) {
                 this.$emit('inputColor', val)
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>
 
@@ -53,7 +51,7 @@ export default {
     .value {
         flex: 1;
         height: 30px;
-        min-width: 100px; // 可以让flex起作用
+        min-width: 100px;
         padding: 0 12px;
         border: 0;
         color: #fff;

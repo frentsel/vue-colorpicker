@@ -31,7 +31,6 @@ export default {
             return canvas
         },
         createLinearGradient(direction, ctx, width, height, color1, color2) {
-            // l 横向 p 纵向
             const isL = direction === 'l'
             const gradient = ctx.createLinearGradient(0, 0, isL ? width : 0, isL ? 0 : height)
             gradient.addColorStop(0.01, color1)
@@ -46,7 +45,7 @@ export default {
         },
         hex2rgb(hex) {
             hex = hex.slice(1)
-            const change = val => parseInt(val, 16) || 0 // 避免NaN的情况
+            const change = val => parseInt(val, 16) || 0;
             return {
                 r: change(hex.slice(0, 2)),
                 g: change(hex.slice(2, 4)),
@@ -60,7 +59,7 @@ export default {
                     r: Number(rgba[0]) || 0,
                     g: Number(rgba[1]) || 0,
                     b: Number(rgba[2]) || 0,
-                    a: Number(rgba[3] ? rgba[3] : 1) // 避免为0的情况
+                    a: Number(rgba[3] ? rgba[3] : 1)
                 }
             } else {
                 return rgba

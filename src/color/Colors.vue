@@ -1,43 +1,29 @@
 <template>
-    <div>
-        <ul class="colors">
-            <li
-                v-for="item in colorsDefault"
-                :key="item"
-                class="item"
-                @click="selectColor(item)"
-            >
-                <div
-                    :style="{ background: `url(${imgAlphaBase64})` }"
-                    class="alpha"
-                />
-                <div
-                    :style="{ background: item }"
-                    class="color"
-                />
-            </li>
-        </ul>
-        <ul
-            v-if="colorsHistory.length"
-            class="colors history"
-        >
-            <li
-                v-for="item in colorsHistory"
-                :key="item"
-                class="item"
-                @click="selectColor(item)"
-            >
-                <div
-                    :style="{ background: `url(${imgAlphaBase64})` }"
-                    class="alpha"
-                />
-                <div
-                    :style="{ background: item }"
-                    class="color"
-                />
-            </li>
-        </ul>
-    </div>
+  <div>
+    <ul class="colors">
+      <li v-for="item in colorsDefault"
+          :key="item"
+          class="item"
+          @click="selectColor(item)">
+        <div :style="{ background: `url(${imgAlphaBase64})` }"
+             class="alpha" />
+        <div :style="{ background: item }"
+             class="color" />
+      </li>
+    </ul>
+    <ul v-if="colorsHistory.length"
+        class="colors history">
+      <li v-for="item in colorsHistory"
+          :key="item"
+          class="item"
+          @click="selectColor(item)">
+        <div :style="{ background: `url(${imgAlphaBase64})` }"
+             class="alpha" />
+        <div :style="{ background: item }"
+             class="color" />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -47,21 +33,22 @@ export default {
     props: {
         color: {
             type: String,
-            default: '#000000'
+            default: '#000000',
         },
         colorsDefault: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         colorsHistoryKey: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     data() {
         return {
             imgAlphaBase64: '',
-            colorsHistory: JSON.parse(localStorage.getItem(this.colorsHistoryKey)) || []
+            colorsHistory:
+                JSON.parse(localStorage.getItem(this.colorsHistoryKey)) || [],
         }
     },
     created() {
@@ -89,8 +76,8 @@ export default {
             colors.unshift(color)
             this.colorsHistory = colors
             localStorage.setItem(this.colorsHistoryKey, JSON.stringify(colors))
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -121,7 +108,7 @@ export default {
         }
         .alpha {
             height: 100%;
-            border-radius: 4px; // 大一像素，否则四个角会看到白点
+            border-radius: 4px;
         }
         .color {
             position: absolute;

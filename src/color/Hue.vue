@@ -1,14 +1,10 @@
 <template>
-    <div
-        class="hue"
-        @mousedown.prevent.stop="selectHue"
-    >
-        <canvas ref="canvasHue" />
-        <div
-            :style="slideHueStyle"
-            class="slide"
-        />
-    </div>
+  <div class="hue"
+       @mousedown.prevent.stop="selectHue">
+    <canvas ref="canvasHue" />
+    <div :style="slideHueStyle"
+         class="slide" />
+  </div>
 </template>
 
 <script>
@@ -16,28 +12,22 @@ export default {
     props: {
         hsv: {
             type: Object,
-            default: null
+            default: null,
         },
         width: {
             type: Number,
-            default: 15
+            default: 15,
         },
         height: {
             type: Number,
-            default: 152
-        }
+            default: 152,
+        },
     },
     data() {
         return {
-            slideHueStyle: {}
+            slideHueStyle: {},
         }
     },
-    // 不能监听，否则操作saturation时，这里的slide会抖动
-    // watch: {
-    //     'hsv.h'() {
-    //         this.renderSlide()
-    //     }
-    // },
     mounted() {
         this.renderColor()
         this.renderSlide()
@@ -52,26 +42,26 @@ export default {
             canvas.height = height
 
             const gradient = ctx.createLinearGradient(0, 0, 0, height)
-            gradient.addColorStop(0, '#FF0000') // 红
-            gradient.addColorStop(0.17 * 1, '#FF00FF') // 紫
-            gradient.addColorStop(0.17 * 2, '#0000FF') // 蓝
-            gradient.addColorStop(0.17 * 3, '#00FFFF') // 青
-            gradient.addColorStop(0.17 * 4, '#00FF00') // 绿
-            gradient.addColorStop(0.17 * 5, '#FFFF00') // 黄
-            gradient.addColorStop(1, '#FF0000') // 红
+            gradient.addColorStop(0, '#FF0000')
+            gradient.addColorStop(0.17 * 1, '#FF00FF')
+            gradient.addColorStop(0.17 * 2, '#0000FF')
+            gradient.addColorStop(0.17 * 3, '#00FFFF')
+            gradient.addColorStop(0.17 * 4, '#00FF00')
+            gradient.addColorStop(0.17 * 5, '#FFFF00')
+            gradient.addColorStop(1, '#FF0000')
             ctx.fillStyle = gradient
             ctx.fillRect(0, 0, width, height)
         },
         renderSlide() {
             this.slideHueStyle = {
-                top: (1 - this.hsv.h / 360) * this.height - 2 + 'px'
+                top: (1 - this.hsv.h / 360) * this.height - 2 + 'px',
             }
         },
         selectHue(e) {
             const { top: hueTop } = this.$el.getBoundingClientRect()
             const ctx = e.target.getContext('2d')
 
-            const mousemove = e => {
+            const mousemove = (e) => {
                 let y = e.clientY - hueTop
 
                 if (y < 0) {
@@ -82,10 +72,14 @@ export default {
                 }
 
                 this.slideHueStyle = {
-                    top: y - 2 + 'px'
+                    top: y - 2 + 'px',
                 }
-                // 如果用最大值，选择的像素会是空的，空的默认是黑色
-                const imgData = ctx.getImageData(0, Math.min(y, this.height - 1), 1, 1)
+                const imgData = ctx.getImageData(
+                    0,
+                    Math.min(y, this.height - 1),
+                    1,
+                    1
+                )
                 const [r, g, b] = imgData.data
                 this.$emit('selectHue', { r, g, b })
             }
@@ -99,8 +93,8 @@ export default {
 
             document.addEventListener('mousemove', mousemove)
             document.addEventListener('mouseup', mouseup)
-        }
-    }
+        },
+    },
 }
 </script>
 

@@ -1,14 +1,10 @@
 <template>
-    <div
-        class="color-alpha"
-        @mousedown.prevent.stop="selectAlpha"
-    >
-        <canvas ref="canvasAlpha" />
-        <div
-            :style="slideAlphaStyle"
-            class="slide"
-        />
-    </div>
+  <div class="color-alpha"
+       @mousedown.prevent.stop="selectAlpha">
+    <canvas ref="canvasAlpha" />
+    <div :style="slideAlphaStyle"
+         class="slide" />
+  </div>
 </template>
 
 <script>
@@ -18,25 +14,25 @@ export default {
     props: {
         color: {
             type: String,
-            default: '#000000'
+            default: '#000000',
         },
         rgba: {
             type: Object,
-            default: null
+            default: null,
         },
         width: {
             type: Number,
-            default: 15
+            default: 15,
         },
         height: {
             type: Number,
-            default: 152
-        }
+            default: 152,
+        },
     },
     data() {
         return {
             slideAlphaStyle: {},
-            alphaSize: 5
+            alphaSize: 5,
         }
     },
     watch: {
@@ -45,7 +41,7 @@ export default {
         },
         'rgba.a'() {
             this.renderSlide()
-        }
+        },
     },
     mounted() {
         this.renderColor()
@@ -66,17 +62,24 @@ export default {
             ctx.fillStyle = ctx.createPattern(canvasSquare, 'repeat')
             ctx.fillRect(0, 0, width, height)
 
-            this.createLinearGradient('p', ctx, width, height, 'rgba(255,255,255,0)', this.color)
+            this.createLinearGradient(
+                'p',
+                ctx,
+                width,
+                height,
+                'rgba(255,255,255,0)',
+                this.color
+            )
         },
         renderSlide() {
             this.slideAlphaStyle = {
-                top: this.rgba.a * this.height - 2 + 'px'
+                top: this.rgba.a * this.height - 2 + 'px',
             }
         },
         selectAlpha(e) {
             const { top: hueTop } = this.$el.getBoundingClientRect()
 
-            const mousemove = e => {
+            const mousemove = (e) => {
                 let y = e.clientY - hueTop
 
                 if (y < 0) {
@@ -99,8 +102,8 @@ export default {
 
             document.addEventListener('mousemove', mousemove)
             document.addEventListener('mouseup', mouseup)
-        }
-    }
+        },
+    },
 }
 </script>
 
